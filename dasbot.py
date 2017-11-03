@@ -22,6 +22,8 @@ TABLE_GROS = {
     73275445: 2, # Titine
     138210703: 3, # MuadTib
     122225369: 4, # Benson
+    413440057: 4, # Val
+    106171943: 4, # Dem
     }
 
 def start(bot, update):

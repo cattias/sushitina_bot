@@ -26,6 +26,8 @@ TABLE_GROS = {
     106171943: 4, # Dem
     }
 
+DEFAULT_GROS = 3
+
 def start(bot, update):
     bot.send_message(chat_id=update.message.chat_id, text='Salut les moules! Qui veut bouffer des sushis ??', timeout=GLOBAL_TIMEOUT)
 
@@ -92,17 +94,17 @@ def button(bot, update):
             choice = int(data[1])
             if not user_id in votes.keys():
                 if choice == 1:
+                    gros = DEFAULT_GROS
                     if TABLE_GROS.get(user_id):
                         gros = TABLE_GROS[user_id]
-                        logger.info("das_vote_callback - gros = %s" % gros)
-                        total += gros
-                    else:
-                        bot.send_message(chat_id=chat_id, text="id non référencée chez les gros : %s" % user_id, timeout=GLOBAL_TIMEOUT)
+                    logger.info("das_vote_callback - gros = %s" % gros)
+                    total += gros
                     
                 voter = query.from_user.username
                 if voter is None:
                     voter = query.from_user.first_name
-                text = u"%s a répondu !" % voter
+                lechoix = "Ouiiiiiiii" if choice == 1 else "Bof j'ai pas faim"
+		text = u"%s a répondu '%s'" % (voter, lechoix)
                 bot.send_message(chat_id=chat_id, text=text, timeout=GLOBAL_TIMEOUT)
         
                 logger.info("das_vote_callback - %s - %s" % (voter, user_id))
